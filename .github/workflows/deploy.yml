@@ -1,0 +1,48 @@
+name: Auto Deploy Insurance App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ================= POLICY SERVICE =================
+      - name: Build & Deploy Policy Service
+        shell: powershell
+        run: |
+          cd policy-service
+          mvn clean package -DskipTests
+          docker build -t policy-service:latest .
+          docker stop policy-service -ErrorAction SilentlyContinue
+          docker rm policy-service -ErrorAction SilentlyContinue
+          docker run -d -p 8081:8081 --name policy-service policy-service:latest
+
+      # ================= API GATEWAY =================
+      - name: Build & Deploy API Gateway
+        shell: powershell
+        run: |
+          cd api-gateway
+          mvn clean package -DskipTests
+          docker build -t api-gateway:latest .
+          docker stop api-gateway -ErrorAction SilentlyContinue
+          docker rm api-gateway -ErrorAction SilentlyContinue
+          docker run -d -p 8082:8082 --name api-gateway api-gateway:latest
+
+      # ================= UI =================
+      - name: Build & Deploy UI
+        shell: powershell
+        run: |
+          cd insurance-ui
+          npm install
+          npm run build
+          docker build -t insurance-ui:latest .
+          docker stop insurance-ui -ErrorAction SilentlyContinue
+          docker rm insurance-ui -ErrorAction SilentlyContinue
+          docker run -d -p 4200:80 --name insurance-ui insurance-ui:latest
