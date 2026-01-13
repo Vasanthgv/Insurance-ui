@@ -23,6 +23,17 @@
  */
 package com.insurance.policy_service.service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
+
 import com.insurance.policy_service.dto.PolicyResponse;
 import com.insurance.policy_service.entity.AuditLog;
 import com.insurance.policy_service.entity.Policy;
@@ -34,17 +45,8 @@ import com.insurance.policy_service.exception.ErrorCode;
 import com.insurance.policy_service.messaging.PolicyEventPublisher;
 import com.insurance.policy_service.repository.AuditLogRepository;
 import com.insurance.policy_service.repository.PolicyRepository;
-import com.insurance.policy_service.service.PolicyService;
+
 import jakarta.transaction.Transactional;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
@@ -90,9 +92,9 @@ implements PolicyService {
 
     public Policy approvePolicy(UUID policyId, String approvedBy) {
         Policy policy = this.getPolicy(policyId);
-        if (policy.getStatus() != PolicyStatus.UNDER_REVIEW) {
-            throw new BusinessException(ErrorCode.POLICY_NOT_APPROVABLE.name(), "Policy must be UNDER_REVIEW to approve");
-        }
+//        if (policy.getStatus() != PolicyStatus.UNDER_REVIEW) {
+//            throw new BusinessException(ErrorCode.POLICY_NOT_APPROVABLE.name(), "Policy must be UNDER_REVIEW to approve");
+//        }
         policy.setStatus(PolicyStatus.ACTIVE);
         policy.setStartDate(LocalDate.now());
         policy.setUpdatedAt(LocalDateTime.now());
