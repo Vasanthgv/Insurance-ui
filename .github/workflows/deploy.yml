@@ -19,7 +19,7 @@ jobs:
      - name: Build & Deploy API Gateway
         shell: powershell
         run: |
-          cd Insurance-ui\gateway-service
+          cd gateway-service
           mvn clean package -DskipTests
           docker build -t api-gateway:latest .
           docker stop api-gateway -ErrorAction SilentlyContinue
