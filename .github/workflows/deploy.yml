@@ -35,14 +35,4 @@ jobs:
           docker rm api-gateway -ErrorAction SilentlyContinue
           docker run -d -p 8082:8082 --name api-gateway api-gateway:latest
 
-      # ================= UI =================
-      - name: Build & Deploy UI
-        shell: powershell
-        run: |
-          cd insurance-ui
-          npm install
-          npm run build
-          docker build -t insurance-ui:latest .
-          docker stop insurance-ui -ErrorAction SilentlyContinue
-          docker rm insurance-ui -ErrorAction SilentlyContinue
-          docker run -d -p 4200:80 --name insurance-ui insurance-ui:latest
+      
