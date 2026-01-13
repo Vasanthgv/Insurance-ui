@@ -17,11 +17,11 @@ jobs:
       # ================= API GATEWAY =================
       - name: Build & Deploy API Gateway
         run: |
-          cd api-gateway
+          cd gateway-service
           mvn clean package -DskipTests
-          docker build -t api-gateway:latest .
-          docker stop api-gateway || true
-          docker rm api-gateway || true
-          docker run -d -p 8082:8082 --name api-gateway api-gateway:latest
+          docker build -t gateway-service:latest .
+          docker stop gateway-service -ErrorAction SilentlyContinue
+          docker rm gateway-service -ErrorAction SilentlyContinue
+          docker run -d -p 8082:8082 --name gateway-service gateway-service:latest
 
      
