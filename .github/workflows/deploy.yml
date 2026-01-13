@@ -14,14 +14,33 @@ jobs:
         uses: actions/checkout@v4
 
       
-      # ================= API GATEWAY =================
-      - name: Build & Deploy API Gateway
-        run: |
-          cd gateway-service
-          mvn clean package -DskipTests
-          docker build -t gateway-service:latest .
-          docker stop gateway-service -ErrorAction SilentlyContinue
-          docker rm gateway-service -ErrorAction SilentlyContinue
-          docker run -d -p 8082:8082 --name gateway-service gateway-service:latest
+      # # ================= API GATEWAY =================
+      # - name: Build & Deploy API Gateway
+      #   run: |
+      #     cd gateway-service
+      #     mvn clean package -DskipTests
+      #     docker build -t gateway-service:latest .
+      #     docker stop gateway-service -ErrorAction SilentlyContinue
+      #     docker rm api-gateway -ErrorAction SilentlyContinue
+      #     docker run -d -p 8082:8082 --name gateway-service gateway-service:latest
 
-     
+      # ================= POLICY SERVICE =================
+      - name: Build & Deploy Policy Service
+        run: |
+          cd policy-service
+          mvn clean package -DskipTests
+          docker build -t policy-service:latest .
+          docker stop policy-service -ErrorAction SilentlyContinue
+          docker rm policy-service -ErrorAction SilentlyContinue
+          docker run -d -p 8081:8081 --name policy-service policy-service:latest
+
+      # # ================= UI =================
+      # - name: Build & Deploy UI
+      #   run: |
+      #     cd insurance-ui
+      #     npm install
+      #     npm run build
+      #     docker build -t insurance-ui:latest .
+      #     docker stop insurance-ui -ErrorAction SilentlyContinue
+      #     docker rm insurance-ui -ErrorAction SilentlyContinue
+      #     docker run -d -p 4200:80 --name insurance-ui insurance-ui:latest
