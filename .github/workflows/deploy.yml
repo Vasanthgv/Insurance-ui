@@ -14,15 +14,15 @@ jobs:
         uses: actions/checkout@v4
 
       
-      # # ================= API GATEWAY =================
-      # - name: Build & Deploy API Gateway
-      #   run: |
-      #     cd gateway-service
-      #     mvn clean package -DskipTests
-      #     docker build -t gateway-service:latest .
-      #     docker stop gateway-service -ErrorAction SilentlyContinue
-      #     docker rm api-gateway -ErrorAction SilentlyContinue
-      #     docker run -d -p 8082:8082 --name gateway-service gateway-service:latest
+      # ================= API GATEWAY =================
+      - name: Build & Deploy API Gateway
+        run: |
+          cd gateway-service
+          mvn clean package -DskipTests
+          docker build -t gateway-service:latest .
+          docker stop gateway-service -ErrorAction SilentlyContinue
+          docker rm api-gateway -ErrorAction SilentlyContinue
+          docker run -d -p 8082:8082 --name gateway-service gateway-service:latest
 
       # ================= POLICY SERVICE =================
       - name: Build & Deploy Policy Service
