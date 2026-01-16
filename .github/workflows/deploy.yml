@@ -35,12 +35,12 @@ jobs:
           docker run -d -p 8081:8081 --name policy-service policy-service:latest
 
       # # ================= UI =================
-      # - name: Build & Deploy UI
-      #   run: |
-      #     cd insurance-ui
-      #     npm install
-      #     npm run build
-      #     docker build -t insurance-ui:latest .
-      #     docker stop insurance-ui -ErrorAction SilentlyContinue
-      #     docker rm insurance-ui -ErrorAction SilentlyContinue
-      #     docker run -d -p 4200:80 --name insurance-ui insurance-ui:latest
+      - name: Build & Deploy UI
+        run: |
+          cd insurance-ui
+          npm install
+          npm run build
+          docker build -t insurance-ui:latest .
+          docker stop insurance-ui -ErrorAction SilentlyContinue
+          docker rm insurance-ui -ErrorAction SilentlyContinue
+          docker run -d -p 4200:80 --name insurance-ui insurance-ui:latest
