@@ -9,7 +9,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/insurance-realm
+          issuer-uri: http://keycloak:8180/realms/insurance-realm
 
   datasource:
     url: jdbc:mysql://mysql:3306/insurance
@@ -19,14 +19,21 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update   # or validate, once tables created
+      ddl-auto: update
     show-sql: false
 
   flyway:
     enabled: true
 
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka:9092
+
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
