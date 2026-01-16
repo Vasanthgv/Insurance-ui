@@ -29,8 +29,9 @@ jobs:
           cd policy-service
           mvn clean package -DskipTests
           docker build -t policy-service:latest .
+          docker rm -f policy-service 2>$null
           docker run -d -p 8081:8081 --name policy-service policy-service:latest
-        # docker rm -f policy-service 2>$null
+        
          
 
       # # ================= UI =================
