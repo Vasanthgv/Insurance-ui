@@ -15,14 +15,14 @@ jobs:
 
       
       # ================= API GATEWAY =================
-      # - name: Build & Deploy API Gateway
-      #   run: |
-      #     cd gateway-service
-      #     mvn clean package -DskipTests
-      #     docker build -t gateway-service:latest .
-      #     docker stop gateway-service || true
-      #     docker rm api-gateway || true
-      #     docker run -d -p 8082:8082 --name gateway-service gateway-service:latest
+      - name: Build & Deploy API Gateway
+        run: |
+          cd gateway-service
+          mvn clean package -DskipTests
+          docker build -t gateway-service:latest .
+          docker stop gateway-service || true
+          docker rm api-gateway || true
+          docker run -d -p 8082:8082 --name gateway-service gateway-service:latest
 
       # ================= POLICY SERVICE =================
       - name: Build & Deploy Policy Service
@@ -30,8 +30,9 @@ jobs:
           cd policy-service
           mvn clean package -DskipTests
           docker build -t policy-service:latest .
-          docker rm -f policy-service 2>$null
           docker run -d -p 8081:8081 --name policy-service policy-service:latest
+        # docker rm -f policy-service 2>$null
+         
 
       # # ================= UI =================
       # - name: Build & Deploy UI
