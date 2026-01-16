@@ -18,7 +18,7 @@ jobs:
         shell: powershell
         run: |
           cd policy-service
-          mvn clean package -DskipTests
+          mvn clean install -DskipTests
           docker build -t policy-service:latest .
           cd ..
 
@@ -35,12 +35,14 @@ jobs:
       - name: Deploy using Docker Compose
         shell: powershell
         run: docker compose up -d --remove-orphans
-          
 
       # ================= VERIFY =================
       - name: Verify Containers
         shell: powershell
-        run: docker ps
+        run: |
+          docker ps
+          docker compose ps
+
 
 
          
