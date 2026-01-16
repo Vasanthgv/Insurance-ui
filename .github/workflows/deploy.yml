@@ -26,9 +26,9 @@ jobs:
       - name: Build API Gateway
         shell: powershell
         run: |
-          cd api-gateway
+          cd gateway-service
           mvn clean package -DskipTests
-          docker build -t api-gateway:latest .
+          docker build -t gateway-service:latest .
           cd ..
 
       # ================= DEPLOY ALL SERVICES =================
