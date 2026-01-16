@@ -73,6 +73,11 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <dependency>
+        	<groupId>com.insurance.policy</groupId>
+        	<artifactId>policy-service</artifactId>
+        	<version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
