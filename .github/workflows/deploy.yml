@@ -20,7 +20,7 @@ jobs:
           cd gateway-service
           mvn clean package -DskipTests
           docker build -t gateway-service:latest .
-          docker rm -f api-gateway 2>$null
+          docker rm -f gateway-service 2>$null
           docker run -d -p 8082:8082 --name gateway-service gateway-service:latest
 
       # ================= POLICY SERVICE =================
