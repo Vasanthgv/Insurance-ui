@@ -9,7 +9,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://host.docker.internal:8180/realms/insurance-realm/protocol/openid-connect/certs
+          jwk-set-uri: http://host.docker.internal:8180/realms/insurance-realm
 
   cloud:
     gateway:
