@@ -34,9 +34,8 @@ jobs:
       # ================= DEPLOY ALL SERVICES =================
       - name: Deploy using Docker Compose
         shell: powershell
-        run: |
-          docker compose down --remove-orphans 2>$null
-          docker compose up -d
+        run: docker compose up -d --remove-orphans
+          
 
       # ================= VERIFY =================
       - name: Verify Containers
