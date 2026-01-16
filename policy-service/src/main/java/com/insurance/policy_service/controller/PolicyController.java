@@ -104,7 +104,7 @@ public class PolicyController {
     @GetMapping
     @PreAuthorize(value="hasAnyRole('AGENT','UNDERWRITER')")
     public Page<PolicyResponse> listPolicies(@RequestParam int page, @RequestParam int size, @RequestParam(required=false) PolicyStatus status, Authentication authentication) {
-        return this.policyService.listPolicies(authentication.getName(), status, (Pageable)PageRequest.of((int)page, (int)size));
+        return this.policyService.listPolicies(authentication.getName(),status, (Pageable)PageRequest.of((int)page, (int)size));
     }
 }
 
