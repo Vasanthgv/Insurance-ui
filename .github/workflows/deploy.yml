@@ -23,7 +23,7 @@ jobs:
           cd ..
 
       # ================= BUILD API GATEWAY =================
-      - name: Build API Gateway
+      - name: Build Gateway Service
         shell: powershell
         run: |
           cd gateway-service
