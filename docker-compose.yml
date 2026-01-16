@@ -1,8 +1,8 @@
 services:
   mysql:
-    image: mysql:8.0
+    image: mysql:8.0.44
     environment:
-      MYSQL_DATABASE: policydb
+      MYSQL_DATABASE: insurance
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: policyuser
       MYSQL_PASSWORD: policypass
