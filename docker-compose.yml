@@ -1,18 +1,33 @@
-version: "3.8"
-
 services:
   mysql:
-    image: mysql:8
-    container_name: mysql-Insurence_db
+    image: mysql:8.0
     environment:
       MYSQL_DATABASE: policydb
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: policyuser
+      MYSQL_PASSWORD: policypass
     ports:
       - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
 
-    volumes:
-      - mysql_data:/var/lib/mysql
+  policy-service:
+    image: policy-service:latest
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/policydb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "8081:8081"
 
-volumes:
-  mysql_data:
-   
+  api-gateway:
+    image: gateway-service:latest
+    depends_on:
+      - policy-service
+    ports:
+      - "8080:8080"
