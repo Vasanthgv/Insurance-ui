@@ -23,12 +23,12 @@ jobs:
           cd ..
 
       # ================= BUILD API GATEWAY =================
-      - name: Build API Gateway
+      - name: Build Gateway Service
         shell: powershell
         run: |
           cd gateway-service
           mvn clean package -DskipTests
-          docker build -t api-gateway:latest .
+          docker build -t gateway-service:latest .
           cd ..
 
       # ================= DEPLOY ALL SERVICES =================
@@ -37,11 +37,9 @@ jobs:
         run: docker compose up -d --remove-orphans
 
       # ================= VERIFY =================
-      - name: Verify Containers
+      - name: Verify Running Containers
         shell: powershell
-        run: |
-          docker ps
-          docker compose ps
+        run: docker compose ps
 
 
 
